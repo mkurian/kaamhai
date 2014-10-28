@@ -55,13 +55,10 @@ function submit(){
     $.get( "http://pppdc9prd48r.corp.intuit.net:8080/kaamhai/jobAds?city=Bangalore&location=whitefield&category=maid", function( data ) {
         alert(data);
 });*/
-  $.get( "js/data.json", function( data ) {
+  $.get( "http://ec2-54-166-99-211.compute-1.amazonaws.com/kaamhai/jobAds?category=maid", function( data ) {
          var i = 1; 
-<<<<<<< HEAD
+           alert(data);
 
-=======
-           alert("clicked");
->>>>>>> FETCH_HEAD
     $.each( data, function( key, value ) {
  
       $("<div class='EmpList' id='Empid"+i+"'></div>").appendTo("div#search-result");
@@ -93,19 +90,7 @@ function displayForm(){
     $("#form").show();
 }
 
-function referralSubmission(){
-<<<<<<< HEAD
-    var data ={
 
-    }
-    $.post("http://pppdc9prd48r.corp.intuit.net:8080/kaamhai/jobAds",data);
-   // $("#pop-up-box").show();
-   alert("Your submission has been recorded");
-=======
-    
-    $("#pop-up-box").show();
->>>>>>> FETCH_HEAD
-}
 
 function yesToRefer(){
     $("#pop-up-box").hide();
@@ -115,4 +100,25 @@ function noToRefer(){
     $("#pop-up-box").hide();
     $("#search-result").show();
 
+}
+
+function referralSubmission(){
+
+    var data ={"name":"Kamalappa","age":"45.0","location":"Whitefield","city":"Bangalore","language":"Kannada","contactInfo":"9000012345","experience":"10.0","description":"He is very dedicated, comes on time and finishes fast. Very neat and clean. He is available for 1 hour everyday from 10-11 am and needs extra income. So I thought I'll post this to help him find a slot. He has got his profile verification done at Whitefield Police Station. So you can ask for that document as well.","availability":"10 -11 am, daily","category":"maid"};
+
+ /*   $.post("http://ec2-54-166-99-211.compute-1.amazonaws.com/kaamhai/jobAds",data,function(){
+      alert("Your submission has been recorded");
+    });
+   
+    $("#pop-up-box").show();
+*/
+$.ajax({
+      url:"http://ec2-54-166-99-211.compute-1.amazonaws.com/kaamhai/jobAds",
+      type:"POST",
+      data:data,
+      contentType:"application/json",
+      success: function(){
+         alert("Your submission has been recorded");
+  }
+  });
 }
