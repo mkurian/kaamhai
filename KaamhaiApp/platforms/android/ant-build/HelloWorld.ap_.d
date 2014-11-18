@@ -60,9 +60,6 @@
 /Users/charithah418/Documents/Experimental coding/kaamhai/KaamhaiApp/platforms/android/assets/www/icon.png \
 /Users/charithah418/Documents/Experimental coding/kaamhai/KaamhaiApp/platforms/android/assets/www/img \
 /Users/charithah418/Documents/Experimental coding/kaamhai/KaamhaiApp/platforms/android/assets/www/index.html \
-/Users/charithah418/Documents/Experimental coding/kaamhai/KaamhaiApp/platforms/android/assets/www/index_1.html \
-/Users/charithah418/Documents/Experimental coding/kaamhai/KaamhaiApp/platforms/android/assets/www/index_2.html \
-/Users/charithah418/Documents/Experimental coding/kaamhai/KaamhaiApp/platforms/android/assets/www/index_3.html \
 /Users/charithah418/Documents/Experimental coding/kaamhai/KaamhaiApp/platforms/android/assets/www/js \
 /Users/charithah418/Documents/Experimental coding/kaamhai/KaamhaiApp/platforms/android/assets/www/lib \
 /Users/charithah418/Documents/Experimental coding/kaamhai/KaamhaiApp/platforms/android/assets/www/LICENSE \

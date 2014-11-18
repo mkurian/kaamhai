@@ -9,6 +9,7 @@
       }, 100);
     };
 
+
     $scope.login = function(){
    
        openFB.init({appId: '518182581658668', tokenStore: window.localStorage});
@@ -34,12 +35,81 @@
                         console.log('Facebook login failed: ' + response.error);
                     }
                 }, {scope: 'email,read_stream,publish_stream'});
-       menu.setMainPage('page1.html', {closeMenu: true})
+    $scope.menuPage1();
+
     }
+
+    $scope.menuPage1 =function(){
+         menu.setMainPage('page1.html', {closeMenu: true})
+
+    }
+    $scope.searchForEmp = function(){
+      console.log("searchEmp");
+                  var searchString = $("#searchStr").val();
+             $.ajax({
+                      type:"GET",
+                      url:'http://ec2-54-166-99-211.compute-1.amazonaws.com/kaamhai/jobAds?'+searchString,
+                      async:false,
+                      success:function(responseText)
+                      {
+                        $data.items = responseText;
+                        $scope.items =responseText;
+
+                     
+                      }});
+            for (var d in $data.items){
+              $data.items[d].cat= $data.items[d].category.substring(0,2).toUpperCase();}
+              $scope.menuPage1();
+            }
+    $scope.submitForm =function(){
+      console.log("Submitting Form");
+      var data = {}; 
+
+      data.name = $("#name").val();
+      data.age = $("#age").val(); 
+      data.location = $("#location").val();
+      data.city = $("#city").val();
+      data.language = $("#language").val(); 
+      data.contactInfo = $("#contact").val();
+      data.experience = $("#experience").val();
+      data.description = $("#description").val();
+      data.availability = $("#availability").val();
+      data.category = $("#category").val();
+      data.expectedPay = $("#pay").val();
+      data.rating = $("#rating").val();
+       console.log(JSON.stringify(data));
+
+
+       $.ajax({
+                      type:"POST",
+                      url:'http://ec2-54-166-99-211.compute-1.amazonaws.com/kaamhai/jobAds',
+                      async:true,
+                      data: JSON.stringify(data),
+                      contentType: "application/json",
+                      
+                      success:function(responseText)
+                      {
+                         alert('success');
+
+                     
+                      }});
+
+    }
+
+$scope.changeColor= function(){
+    $('#flag').css('color','#4282CC');
+}
+
+
   });
 
   module.controller('DetailController', function($scope, $data) {
     $scope.item = $data.selectedItem;
+  });
+
+  module.controller('FormController',function($scope){
+    
+
   });
 
   module.controller('MasterController', function($scope, $data) {
@@ -54,44 +124,62 @@
 
   module.factory('$data', function() {
       var data = {};
-      
-      data.items = [
-          { 
-              title: 'Arun P',
-              label: '4h',
-              desc: 'very good',
-              rating: '4',
-              category:'Maid'
-          },
-          { 
-              title: 'Jaya',
-              label: '6h',
-              desc: 'cool',
-              rating: '5',
-              category:'Driver'
-          },
-          { 
-              title: 'Komal',
-              label: '1day ago',
-              desc: '',
-              rating:'3',
-              category:'Helper'
-          },
-          { 
-              title: 'Vidya',
-              label: '1day ago',
-              desc: '',
-              rating: '2',
-              category:'Maid'
+      var city;
+      navigator.geolocation.getCurrentPosition(function (position) {
+              console.log(position.coords.latitude + "-" + position.coords.longitude);
+              var urlText="http://maps.googleapis.com/maps/api/geocode/json?latlng="+
+                position.coords.latitude +","+position.coords.longitude+"&sensor=true";
 
-          }
-      ]; 
+
+              $.ajax({
+
+                type:"POST",
+                url: urlText,
+                async:true,
+                success:function(responseText){
+
+               
+               
+                if(responseText.results.length>0)
+                {
+               
+                var locationDetails=responseText.results[0].formatted_address;
+                var  value=locationDetails.split(",");
+               
+                var count=value.length;
+               
+                var country=value[count-1];
+                var state=value[count-2];
+                city=value[count-3];
+              }
+            }
+          });},function (error) {  
+              alert('code: '    + error.code +'message: ' + error.message + '\n'); 
+                  });
+
+     
+      if(city==undefined)
+      {
+        city="Bangalore";
+      }
+      console.log(city);
+       $.ajax({
+                      type:"GET",
+                      url:'http://ec2-54-166-99-211.compute-1.amazonaws.com/kaamhai/jobAds?city='+city,
+                      async:false,
+                      success:function(responseText)
+                      {
+
+                        console.log(responseText[0].name);
+                        data.items =responseText;
+     
+                      }});
+
 
       for (var d in data.items){
         data.items[d].cat= data.items[d].category.substring(0,2).toUpperCase();
       }
-     
-      return data;
+     return data;
   });
 })();
 

@@ -21,14 +21,17 @@ Charitha Hegde
   <script src="lib/onsen/js/angular/angular.js"></script>    
   <script src="lib/onsen/js/onsenui.js"></script>    
   <script type="text/javascript" src="lib/graph/js/progress-circle.js"></script>
+  <script src="cordova.js"></script>
 
-   <script src="js/jquery-2.1.1.min.js"></script>
+  <script src="js/jquery-2.1.1.min.js"></script>
   <script src="js/openfb.js"></script>
   <script src="js/app.js"></script>  
 
   <script>
     ons.ready(function() {
+
       $("#login-profile").hide();
+
     });
   </script>
 
@@ -65,12 +68,26 @@ Charitha Hegde
       margin: 4px 0 0 0;
       padding: 0 30px 0 0;
     }
+    .item-age{
+      font-size: 14px;
+      color: #666;
+      line-height: 1.3;
+      margin: 4px 0 0 0;
+      padding: 10px 0px 10px 0px;
+    }
     .item-label {
       font-size: 12px;
       color: #999;
       float: right;
     }
 
+    .item-contact{
+      font-size: 14px;
+      color: #EB482F;
+      line-height: 1.3;
+      margin: 4px 0 0 0;
+      padding: 5px 0px 5px 0px;
+    }
      .page--menu-page__background {
       background-color: #333;
     }
@@ -165,6 +182,9 @@ Charitha Hegde
   font-size: 20px;
   padding: 66px 0 8px 0;
   text-align: center;
+  position: relative;
+  top: 100px;
+  left: 25%;
 }
 
 .card-desc {
@@ -200,6 +220,9 @@ Charitha Hegde
   font-weight: 600;
   font-size: 17px;
 }
+
+
+
 
   </style>
   <link type="text/css" rel="stylesheet" href="lib/graph/css/circle.css">
@@ -242,21 +265,17 @@ Charitha Hegde
           <ons-icon icon="fa-facebook"></ons-icon>
           Facebook Login
         </ons-list-item>
+
+        <ons-list-item class="menu-item" ng-click="menu.setMainPage('help.html', {closeMenu: true})">
+          <ons-icon icon="ion-ios7-help"></ons-icon>
+          App Help
+        </ons-list-item>
       </ons-list>
 
 
       <br>
 
-      <ons-list class="bottom-menu-list">
-
-        <ons-list-item class="bottom-menu-item" ng-click="menu.setMainPage('help.html', {closeMenu: true})">
-          Help
-        </ons-list-item>
-
-        <ons-list-item class="bottom-menu-item" ng-click="menu.setMainPage('feedback.html', {closeMenu: true})">
-          Send feedback
-        </ons-list-item>
-      </ons-list>
+    
     </ons-page>
   </ons-template>
 
@@ -265,8 +284,12 @@ Charitha Hegde
    
     <div class="card">
      
-            <ons-toolbar-button ng-click="menu.toggle()"><ons-icon icon="ion-arrow-left-c" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button>
-     
+            <ons-toolbar-button ng-click="menu.toggle()"><ons-icon icon="ion-navicon" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button>
+            <div>
+              <div class="card-name">
+                  <input type="search" id="searchStr" ng-blur="searchForEmp()" value="" style="width:50%" placeholder="Search" class="search-input">
+              </div>
+            </div>
 
   
     </div>
@@ -298,10 +321,9 @@ Charitha Hegde
             </ons-col>
             <ons-col>
               <header>
-                <span class="item-title">{{item.title}}</span>
-                <span class="item-label">{{item.label}}</span>
+                <span class="item-title">{{item.name}}</span>
               </header>
-              <p class="item-desc">{{item.desc}}</p>
+              <p class="item-desc">Experience: {{item.experience}}</p>
               <div class="rating-num">
                       <ons-icon icon="fa-star" fixed-width="false"></ons-icon> 
                        {{item.rating}}
@@ -331,18 +353,91 @@ Charitha Hegde
             </ons-col>
             <ons-col>
               <header>
-                <span class="item-title">{{item.title}}</span>
-                <span class="item-label">{{item.label}}</span>
+                <span class="item-title">{{item.name}}</span>
+                <span class="item-label"><div class="rating-num">
+                      <ons-icon icon="fa-star" fixed-width="false"></ons-icon> 
+                       {{item.rating}}
+                </div></span>
 
               </header>
-              <p class="item-desc">{{item.desc}}</p>
+              <p class="item-desc">{{item.description}}</p>
+
             </ons-col>
+
           </ons-row>
+          <ons-row>
+              <ons-col width="60px"> 
+             
+            </ons-col>
+              <on-col>
+                <p class="item-age" >Age  {{item.age}}</p>
+              </on-col>
+           
+            
+
+          </ons-row>
+          <ons-row>
+              <ons-col width="60px"> 
+             
+            </ons-col>
+              <on-col>
+                <p class="item-age" >Location  {{item.location}}</p>
+              </on-col>
+           
+            
+
+          </ons-row>
+          <ons-row>
+              <ons-col width="60px"> 
+             
+            </ons-col>
+              <on-col>
+                <p class="item-age" >City  {{item.city}}</p>
+              </on-col>
+           
+            
+
+          </ons-row>
+          <ons-row>
+              <ons-col width="60px"> 
+             
+            </ons-col>
+              <on-col>
+                <p class="item-age" >Availability  {{item.availability}}</p>
+              </on-col>
+             
+              
+
+          </ons-row>
+
+          <ons-row>
+              <ons-col width="60px"> 
+             
+            </ons-col>
+              <on-col>
+                <p class="item-contact" >Contact  {{item.contactInfo}}</p>
+              </on-col>
+           
+            
+
+          </ons-row>
+          <ons-row>
+              <ons-col width="60px"> 
+             
+            </ons-col>
+              <on-col>
+                <p class="item-contact" > Salary Expectation {{item.expectedPay}}/month</p>
+              </on-col>
+           
+            
+
+          </ons-row>
+
         </ons-list-item>
 
-        <ons-list-item modifier="chevron" ng-click="glow='#ccc';console.log(glow)" >
+        <ons-list-item modifier="chevron" ng-click="changeColor()" >
           <ons-icon icon="ion-chatboxes" fixed-width="true" style="color: #ccc"></ons-icon>
-          <ons-icon icon="ion-flag" style="color:glow" ></ons-icon>
+          <ons-icon icon="ion-flag" id="flag"></ons-icon>
         </ons-list-item>
       </ons-list>
 
@@ -354,7 +449,7 @@ Charitha Hegde
 
 
   <ons-template id="page2.html">
-    <ons-page>
+    <ons-page >
       <ons-toolbar>
         <div class="left">
           <ons-toolbar-button ng-click="menu.toggle()">
@@ -372,7 +467,7 @@ Charitha Hegde
                 Name:
             </ons-col>
             <ons-col>
-              <input placeholder="Enter Name"class="text-input" />  
+              <input id="name" placeholder="Enter Name" class="text-input" />  
             </ons-col>
           </ons-list-item>
           <ons-list-item class="item">
@@ -382,7 +477,7 @@ Charitha Hegde
                 Age:
             </ons-col>
             <ons-col>
-              <input placeholder="Enter Age" class="text-input" />  
+              <input id="age" placeholder="Enter Age" class="text-input" />  
             </ons-col>
           </ons-list-item>
           <ons-list-item class="item">
@@ -391,7 +486,7 @@ Charitha Hegde
                 Location:
             </ons-col>
             <ons-col>
-              <input placeholder="Enter Location" class="text-input" />  
+              <input id="location" placeholder="Enter Location" class="text-input" />  
             </ons-col>
 
           </ons-row>
@@ -402,7 +497,7 @@ Charitha Hegde
                 City:
             </ons-col>
             <ons-col>
-              <input placeholder="Enter City" class="text-input" />  
+              <input id="city" placeholder="Enter City" class="text-input" />  
             </ons-col>
           </ons-row>
           </ons-list-item>
@@ -412,7 +507,7 @@ Charitha Hegde
                 Language:
             </ons-col>
             <ons-col>
-              <input placeholder="Enter Language" class="text-input" />  
+              <input id="language" placeholder="Enter Language" class="text-input" />  
             </ons-col>
 
           </ons-row>
@@ -424,7 +519,7 @@ Charitha Hegde
                 ContactInfo:
             </ons-col>
             <ons-col>
-              <input placeholder="Enter Contact Info" class="text-input" />  
+              <input id="contact" placeholder="Enter Contact Info" class="text-input" />  
             </ons-col>
 
           </ons-row>
@@ -436,7 +531,7 @@ Charitha Hegde
                 Experience:
             </ons-col>
             <ons-col>
-              <input placeholder="Enter Experience" class="text-input" />  
+              <input id="experience" placeholder="Enter Experience" class="text-input" />  
             </ons-col>
 
           </ons-row>
@@ -449,7 +544,7 @@ Charitha Hegde
                 Description:
             </ons-col>
             <ons-col>
-              <textarea placeholder="Enter Description" class="textarea"> </textarea> 
+              <textarea id="description" placeholder="Enter Description" class="textarea"> </textarea> 
             </ons-col>
 
           </ons-row>
@@ -462,13 +557,11 @@ Charitha Hegde
                     Availability:
                 </ons-col>
                 <ons-col>
-                  <input  placeholder="Enter Availability"  class="text-input"/>  
+                  <input id="availability"  placeholder="Enter Availability"  class="text-input"/>  
                 </ons-col>
 
               </ons-row>
           </ons-list-item>
-
-          <ons-list-item class="item">
 
 
           <ons-list-item class="item">
@@ -478,19 +571,19 @@ Charitha Hegde
                     Category:
                 </ons-col>
                 <ons-col>
-                 <select>
-                  <option>BookKeeper</option>
-                  <option>BabySitter</option>
-                  <option>Cashier</option>
-                  <option>Carpenter</option>
-                  <option>Cook</option>
-                  <option>Cleaner</option>
-                  <option>Driver</option>
-                  <option>Electrician</option>
-                  <option>Gardener</option>
-                  <option>Helper</option>
-                  <option>Maid</option>
-                  <option>Steward</option>
+                 <select id="category">
+                  <option value="BookKeeper">BookKeeper</option>
+                  <option value="BabySitter">BabySitter</option>
+                  <option value="Cashier">Cashier</option>
+                  <option value="Carpenter">Carpenter</option>
+                  <option value="Cook">Cook</option>
+                  <option value="Cleaner">Cleaner</option>
+                  <option value="Driver">Driver</option>
+                  <option value="Electrician">Electrician</option>
+                  <option value="Gardener">Gardener</option>
+                  <option value="Helper">Helper</option>
+                  <option value="Maid">Maid</option>
+                  <option value="Steward">Steward</option>
                  </select>
                 </ons-col>
 
@@ -505,11 +598,11 @@ Charitha Hegde
             </ons-col>
             <ons-col>
               <label class="radio-button">Male
-                  <input type="radio">
+                  <input id="mradio" type="radio">
                 <div class="radio-button__checkmark"></div>
               </label>
               <label class="radio-button">Female
-                  <input type="radio">
+                  <input id="fradio" type="radio">
                 <div class="radio-button__checkmark"></div>
               </label>
             </ons-col>
@@ -522,7 +615,7 @@ Charitha Hegde
                 Expected Pay:
             </ons-col>
             <ons-col>
-              <input placeholder="Enter Expected Pay" class="text-input"/>  
+              <input id="pay" placeholder="Enter Expected Pay" class="text-input"/>  
             </ons-col>
 
           </ons-row>
@@ -535,13 +628,13 @@ Charitha Hegde
                 Rating:
             </ons-col>
             <ons-col>
-              <input type="number" max="5" min="0"/>  
+              <input id="rating" type="number" max="5" min="0"/>  
             </ons-col>
 
           </ons-row>
           </ons-list-item>
 
-          <ons-button modifier="large">Submit</ons-button>
+          <ons-button modifier="large" ng-click="submitForm()">Submit</ons-button>
 
 
 
@@ -562,21 +655,6 @@ Charitha Hegde
 
     </ons-page>
   </ons-template>
-
-  <ons-template id="feedback.html">
-      <ons-page>
-        <ons-toolbar>
-          <div class="left">
-            <ons-toolbar-button ng-click="menu.toggle()">
-              <ons-icon icon="ion-navicon" size="28px" fixed-width="false"></ons-icon>
-            </ons-toolbar-button>
-          </div>
-          <div class="center">Send Us Feedback</div>
-        </ons-toolbar>
-
-
-      </ons-page>
-    </ons-template>
 
 
 </body>  
