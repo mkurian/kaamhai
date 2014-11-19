@@ -73,6 +73,7 @@
 /Users/charithah418/Documents/Experimental coding/kaamhai/KaamhaiApp/platforms/android/assets/www/img/download.jpeg \
 /Users/charithah418/Documents/Experimental coding/kaamhai/KaamhaiApp/platforms/android/assets/www/js/app.js \
 /Users/charithah418/Documents/Experimental coding/kaamhai/KaamhaiApp/platforms/android/assets/www/js/jquery-2.1.1.min.js \
+/Users/charithah418/Documents/Experimental coding/kaamhai/KaamhaiApp/platforms/android/assets/www/js/jquery.bpopup.min.js \
 /Users/charithah418/Documents/Experimental coding/kaamhai/KaamhaiApp/platforms/android/assets/www/js/openfb.js \
 /Users/charithah418/Documents/Experimental coding/kaamhai/KaamhaiApp/platforms/android/assets/www/lib/graph \
 /Users/charithah418/Documents/Experimental coding/kaamhai/KaamhaiApp/platforms/android/assets/www/lib/onsen \

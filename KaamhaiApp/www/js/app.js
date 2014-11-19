@@ -64,7 +64,7 @@
     $scope.submitForm =function(){
       console.log("Submitting Form");
       var data = {}; 
-
+      var err =false;
       data.name = $("#name").val();
       data.age = $("#age").val(); 
       data.location = $("#location").val();
@@ -78,8 +78,19 @@
       data.expectedPay = $("#pay").val();
       data.rating = $("#rating").val();
        console.log(JSON.stringify(data));
-
-
+        
+        if(data.contactInfo=='' )
+        {
+            err=true;
+          
+        }
+        if(data.name == '')
+        {
+            err= true;
+        
+        }
+  
+if(err==false){
        $.ajax({
                       type:"POST",
                       url:'http://ec2-54-166-99-211.compute-1.amazonaws.com/kaamhai/jobAds',
@@ -89,17 +100,47 @@
                       
                       success:function(responseText)
                       {
-                         alert('success');
+                          $('#element_to_pop_up').bPopup();
+                         // alert('Thanks for your Good Deed. You have earned Karma Points!');
+                          $("#name").val('');
+                          $("#age").val(''); 
+                          $("#location").val('');
+                          $("#city").val('');
+                          $("#language").val(''); 
+                          $("#contact").val('');
+                          $("#experience").val('');
+                          $("#description").val('');
+                          $("#availability").val('');
+                          $("#category").val('');
+                          $("#pay").val('');
+                          $("#rating").val('');
+                          
+                          $.ajax({
+                      type:"GET",
+                      url:'http://ec2-54-166-99-211.compute-1.amazonaws.com/kaamhai/jobAds/search?q=Bangalore',
+                      async:false,
+                      success:function(responseText)
+                      {
+                        $data.items = responseText;
+                        $scope.items =responseText;
 
                      
+                      }});
+
+                    for (var d in $data.items){
+              $data.items[d].cat= $data.items[d].category.substring(0,2).toUpperCase();}
+                     $scope.menuPage1();
+                    window.location.reload();
                       },
                     error:function(resp){
-                        alert("Sorry we couldn't record your response");
+                        alert("Sorry we couldn't record your request");
+                        
+                        
        }
        }
                     
                     
-             );
+             );}
 
     }
 

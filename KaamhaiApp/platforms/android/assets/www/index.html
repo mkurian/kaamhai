@@ -26,11 +26,13 @@ Charitha Hegde
   <script src="js/jquery-2.1.1.min.js"></script>
   <script src="js/openfb.js"></script>
   <script src="js/app.js"></script>  
+  <script src="js/jquery.bpopup.min.js"></script>
 
   <script>
     ons.ready(function() {
 
       $("#login-profile").hide();
+      $("input").attr("required", true);
 
     });
   </script>
@@ -233,6 +235,15 @@ Charitha Hegde
   font-size: 17px;
 }
 
+      
+#element_to_pop_up { display:none; }
+
+#poptext{
+color: rgb(13, 13, 13);
+background: white;
+border-radius: 10px;
+height: 130px;
+}
 
 
 
@@ -482,7 +493,7 @@ Charitha Hegde
                 Name:
             </ons-col>
             <ons-col>
-              <input id="name" placeholder="Enter Name" class="text-input" />  
+                <input id="name" placeholder="Enter Name" class="text-input" />         
             </ons-col>
           </ons-list-item>
           <ons-list-item class="item">
@@ -534,7 +545,8 @@ Charitha Hegde
                 ContactInfo:
             </ons-col>
             <ons-col>
-              <input id="contact" placeholder="Enter Contact Info" class="text-input" />  
+              <input id="contact" placeholder="Enter Contact Info" class="text-input" required>  
+                
             </ons-col>
 
           </ons-row>
@@ -648,7 +660,12 @@ Charitha Hegde
 
           </ons-row>
           </ons-list-item>
-
+        <div id="element_to_pop_up">
+            <div id="poptext">
+                <span class="button b-close">                    <span>X</span></span>
+                <div> Thanks for your Good Deed. <br/>You have earned Karma Points!<br></div>
+          </div>
+        </div>
           <ons-button modifier="large" ng-click="submitForm()">Submit</ons-button>
 
 
