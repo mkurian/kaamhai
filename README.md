@@ -1,7 +1,7 @@
 
 
-kaamhai-webapp builds the war to be deployed to tomcat
-kaamhai-core builds a jar which is packaged in the war
+- kaamhai-webapp builds the war to be deployed to tomcat
+- kaamhai-core builds a jar which is packaged in the war
 
 To build and deploy, run ./deploy.sh
 
