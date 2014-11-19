@@ -145,11 +145,13 @@ public class JobAdDAOESClient implements IJobAdDAO {
 	}
 
 	@Override
-	public List<JobAd> searchByContact(String contact)
+	public List<JobAd> searchByContact(String contact, String category)
 			throws ClientProtocolException, IOException, Exception {
-
 		SearchSourceBuilder bldr = new SearchSourceBuilder();
-		MatchQueryBuilder q = QueryBuilders.matchQuery("contactInfo", contact);
+		BoolQueryBuilder q = QueryBuilders.boolQuery()
+				.must(QueryBuilders.matchQuery("contactInfo", contact))
+				.must(QueryBuilders.matchQuery("category", category));
+		
 		bldr.query(q);
 		return getJobAds(bldr);
 	}
