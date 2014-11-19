@@ -1,6 +1,7 @@
 package org.kaamhai.bizlogic;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,10 @@ import org.apache.http.client.ClientProtocolException;
 import org.kaamhai.dao.IJobAdDAO;
 import org.kaamhai.dao.JobAdDAOESClient;
 import org.kaamhai.entity.JobAd;
+import org.kaamhai.entity.Reference;
 import org.kaamhai.service.IJobAdService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 
@@ -20,6 +24,8 @@ import org.kaamhai.service.IJobAdService;
  *
  */
 public class JobAdManager implements IJobAdService {
+	private static Logger logger = LoggerFactory.getLogger(JobAdDAOESClient.class);
+	
 	IJobAdDAO dao;
 
 	public JobAdManager() {
@@ -43,14 +49,38 @@ public class JobAdManager implements IJobAdService {
 	}
 
 	public Response create(HttpServletRequest request,
-			HttpHeaders headers, JobAd ad) throws Exception {
-		ad = dao.create(ad);
-		return Response.status(Status.OK).entity(ad).build();
+			HttpHeaders headers, JobAd adToAdd) throws Exception {
+		List<JobAd> ads = dao.searchByContact(adToAdd.getContactInfo());
+		logger.info(ads == null ? "null" : ads.toString());
+		if(ads != null && ads.size() > 0){
+			JobAd adPresent = ads.get(0);
+			adPresent.setRating(adPresent.getRating() + 1);
+//			Reference ref = new Reference();
+//			ref.setNote(adToAdd.getDescription());
+//			adPresent.getReferences().add(ref);
+			adToAdd = dao.update(adPresent, adPresent.getId());
+			
+		}else{
+//			List<Reference> refs = new ArrayList<>();
+//			Reference ref = new Reference();
+//			ref.setNote(adToAdd.getDescription());
+//			adToAdd.setReferences(refs);
+			
+			adToAdd.setRating(1);
+			adToAdd = dao.create(adToAdd);
+		}
+		return Response.status(Status.OK).entity(adToAdd).build();
 	}
 
 	public Response update(String id, JobAd ad,
 			HttpServletRequest request, HttpHeaders headers) throws Exception {
 		ad = dao.update(ad, id);
 		return Response.status(Status.OK).entity(ad).build();
+	}
+
+	@Override
+	public Response searchString(String searchString) throws Exception {
+		List<JobAd> jobAds = dao.search(searchString);
+		return Response.status(Status.OK).entity(jobAds).build();
 	}
 }
