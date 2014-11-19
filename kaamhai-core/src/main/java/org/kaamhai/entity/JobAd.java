@@ -112,4 +112,9 @@ public class JobAd {
 	Double expectedPay;
 	Integer rating;
 	List<Reference> references;
+	
+	public String toString(){
+		return id + " " + name + " " + location +" " + city +" " + category +" " + contactInfo
+			;
+	}
 }
