@@ -42,10 +42,6 @@ public interface IJobAdService {
 	public Response create(@Context HttpServletRequest request,
 			@Context HttpHeaders headers, JobAd jobAd) throws Exception;
 
-//	@GET
-//	@Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
-//	public Response get() throws Exception;
-	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
 	public Response search (
@@ -54,5 +50,13 @@ public interface IJobAdService {
 			@QueryParam("city") String city,
 			@QueryParam("language")  String language,
 			@QueryParam("category")  String category) 
+			throws Exception;
+	
+
+	@GET
+	@Path("/search")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
+	public Response searchString (
+			@QueryParam("q") String searchString) 
 			throws Exception;
 }
