@@ -50,7 +50,7 @@ public class JobAdManager implements IJobAdService {
 
 	public Response create(HttpServletRequest request,
 			HttpHeaders headers, JobAd adToAdd) throws Exception {
-		List<JobAd> ads = dao.searchByContact(adToAdd.getContactInfo());
+		List<JobAd> ads = dao.searchByContact(adToAdd.getContactInfo(), adToAdd.getCategory());
 		logger.info(ads == null ? "null" : ads.toString());
 		if(ads != null && ads.size() > 0){
 			JobAd adPresent = ads.get(0);
