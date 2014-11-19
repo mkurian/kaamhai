@@ -14,7 +14,7 @@ public interface IJobAdDAO {
 	
 	public List<JobAd> search(String gender, String location, String city, String language, String category) throws ClientProtocolException, IOException, Exception;
 	
-	public List<JobAd> searchByContact(String contact) throws ClientProtocolException, IOException, Exception;
+	public List<JobAd> searchByContact(String contact, String category) throws ClientProtocolException, IOException, Exception;
 	
 	public List<JobAd> search(String searchString) throws ClientProtocolException, IOException, Exception;
 	
