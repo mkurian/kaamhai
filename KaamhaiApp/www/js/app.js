@@ -12,7 +12,7 @@
 
     $scope.login = function(){
    
-       openFB.init({appId: '518182581658668', tokenStore: window.localStorage});
+       openFB.init({appId: '518182581658668'});
 
         openFB.login(
                 function(response) {
@@ -48,7 +48,7 @@
                   var searchString = $("#searchStr").val();
              $.ajax({
                       type:"GET",
-                      url:'http://ec2-54-166-99-211.compute-1.amazonaws.com/kaamhai/jobAds?'+searchString,
+                      url:'http://ec2-54-166-99-211.compute-1.amazonaws.com/kaamhai/jobAds/search?q='+searchString,
                       async:false,
                       success:function(responseText)
                       {
@@ -92,7 +92,14 @@
                          alert('success');
 
                      
-                      }});
+                      },
+                    error:function(resp){
+                        alert("Sorry we couldn't record your response");
+       }
+       }
+                    
+                    
+             );
 
     }
 

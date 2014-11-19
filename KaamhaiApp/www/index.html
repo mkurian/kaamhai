@@ -171,12 +171,12 @@ Charitha Hegde
 
 .card {
   background-color: white;
-  background-image: url(img/download.jpeg);
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
   height: 100%;
 }
+      
 .card-name {
   font-weight: 600;
   font-size: 20px;
@@ -185,6 +185,18 @@ Charitha Hegde
   position: relative;
   top: 100px;
   left: 25%;
+}
+      
+
+.card-heading {
+    color: #4283CD;
+    font-weight: 600;
+    font-size: 40px;
+    padding: 64px 0 8px 0;
+    text-align: center;
+    position: relative;
+    top: 100px;
+
 }
 
 .card-desc {
@@ -286,6 +298,9 @@ Charitha Hegde
      
             <ons-toolbar-button ng-click="menu.toggle()"><ons-icon icon="ion-navicon" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button>
             <div>
+            <div class="card-heading">
+                Kaam Hai
+            </div>
               <div class="card-name">
                   <input type="search" id="searchStr" ng-blur="searchForEmp()" value="" style="width:50%" placeholder="Search" class="search-input">
               </div>
