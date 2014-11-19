@@ -5,7 +5,8 @@ kaamhai-core builds a jar which is packaged in the war
 
 To build and deploy, run ./deploy.sh
 
-Host elasticsearch in default settings, configure TOMCAT_HOME env variable
+Host elasticsearch in default settings in the same host for now
+Configure TOMCAT_HOME env variable
 
 
 KaamHaiApp
